@@ -39,20 +39,34 @@ for i in range(len(vec[1])):
 #         print(f"{i + 1}\t\t{[j + 1 for j in range(len(vec[1][0])) if vec[1][i][j] > 0]}")
 
 # 表 8
+vecs8 = {}
 for gamm in range(11):
     vec = BoundedRationalChoiceBehaviorModel(SimulatedAnnealing, gamm).run()
-    print(f"模型 P1- 理性程度： { gamm }, 选址结果： {[index + 1 for index, value in enumerate(vec[0]) if value > 0]}, 目标函数值: {vec[2]}, "
-          f"占人口比重：{ (vec[2]/sum(alphai)) * 100 }")
+    vecs8[gamm] = vec
+print('表八')
+print("理性程度\t选址结果\t目标函数值\t占人口比重")
+for k, v in vecs8.items():
+    print(k, '\t', [index + 1 for index, value in enumerate(v[0]) if value > 0], '\t', v[2], '\t',
+          (v[2] / sum(alphai)) * 100)
 
 # 表 9，pv = 9 无解
+vecs9 = {}
 for pv in range(1, 9):
     vec = BoundedRationalChoiceBehaviorModel(SimulatedAnnealing, trueValueNum=pv, falseValueNum=10 - pv).run()
-    print(f"模型 P1- 选址个数： { pv }, 选址结果： {[index + 1 for index, value in enumerate(vec[0]) if value > 0]}, 目标函数值: {vec[2]}, "
-          f"占人口比重：{ (vec[2]/sum(alphai)) * 100 }")
+    vecs9[pv] = vec
+print('表九')
+print("选址个数\t选址结果\t目标函数值\t占人口比重")
+for k, v in vecs9.items():
+    print(k, '\t', [index + 1 for index, value in enumerate(v[0]) if value > 0], '\t', v[2], '\t',
+          (v[2] / sum(alphai)) * 100)
 
 # 表 10 手动修改 Options 文件中的参数值 [291, 292, 300, 400, 500, 600, 700, 800, 898.5, 900.0]
+vecs10 = {}
 for f in [292, 300, 400, 500, 600, 700, 800, 898.5, 900.0]:
-    F = f
     vec = BoundedRationalChoiceBehaviorModel(SimulatedAnnealing, F=f).run()
-    print(f"模型 P1- 财政预算(万元)： { F }, 选址结果： {[index + 1 for index, value in enumerate(vec[0]) if value > 0]}, 目标函数值: {vec[2]}, "
-          f"占人口比重：{ (vec[2]/sum(alphai)) * 100 }")
+    vecs10[f] = vec
+print('表十')
+print("财政预算\t选址结果\t目标函数值\t占人口比重")
+for k, v in vecs10.items():
+    print(k, '\t', [index + 1 for index, value in enumerate(v[0]) if value > 0], '\t', v[2], '\t',
+          (v[2] / sum(alphai)) * 100)

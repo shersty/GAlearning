@@ -8,7 +8,7 @@
 """
 import math
 import random
-
+import time
 
 class SimulatedAnnealing(object):
     def __init__(self, function, testFunction, F = 800, trueValueNum=5, falseValueNum=5, T=1e8, cool=0.9):
@@ -21,6 +21,7 @@ class SimulatedAnnealing(object):
         self.cool = cool
 
     def run(self):
+        startTime = int(round(time.time()*1000))
         # 随机的初始解
         vec = [True] * self.trueValueNum + [False] * self.falseValueNum
         random.shuffle(vec)
@@ -59,6 +60,8 @@ class SimulatedAnnealing(object):
             # 温度下降
             self.T = self.T * self.cool
             # print(f"This is NO.{count} iteration, the optimal solution for {vec}, f(x) = {self.function(vec)}")
+        endTime = int(round(time.time()*1000))
+        print("迭代次数：", count, "运行时间(ms)：", endTime - startTime)
         return vec
 
 

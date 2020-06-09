@@ -49,6 +49,10 @@ F = 1500
 center = (60, 10)
 
 if __name__ == '__main__':
-    print(len(IPosition))
-    print(len(JPosition))
-    print(len(alphai))
+    print('小区编号', '\t', '坐标/km', '\t', '人口/千人', '\t', '小区编号', '\t', '坐标/km', '\t', '人口/万人')
+    for i in range(15):
+        print(i+1, '\t', IPosition[i], '\t', alphai[i], '\t', i+16, IPosition[i+15], '\t', alphai[i+15])
+    print()
+    print('备选点编号', '\t', '坐标/km', '\t', '容纳人数 / 千人', '\t', '启用成本 / 万元')
+    for i in range(10):
+        print(i+1, '\t', JPosition[i], '\t', cj[i], '\t', fj[i])
