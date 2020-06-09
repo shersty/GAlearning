@@ -33,6 +33,16 @@ class BoundedRationalChoiceBehaviorModel(object):
         return [vec, [[pij[i][j] * alphai[i] for j in range(len(JPosition))] for i in range(len(IPosition))], self.fitness(vec)]
 
 
+class SimpleModel(object):
+    # 简单模型
+    def __init__(self, function):
+        self.optimizeFunction = function
+
+    # 目标函数
+    def fitness(self, vec):
+        z1 = [sum(d[i][j] for i in range(len(IPosition))) for j in range(len(JPosition))]
+
+
 class UtilityOptimalSelectionBehaviorModel(object):
     # 效用最优选择行为
     def __init__(self, function, *args, **kwargs):

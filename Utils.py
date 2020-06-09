@@ -6,7 +6,7 @@
 @Version : Python 3.7.4 (default, Aug 13 2019, 15:17:50)
 @Describe: 
 """
-from math import exp
+from math import exp, sqrt
 from Options import *
 
 
@@ -32,11 +32,14 @@ def getUi(Ai: float, Lambda: float, D: float) -> float:
 cj_ = [cj[j] / max(cj) for j in range(len(JPosition))]
 
 # 避难所 j 与小区 i 的距离
-d = [[((IPosition[i][0] - JPosition[j][0]) ** 2 + (IPosition[i][1] - JPosition[j][1]) ** 2) ** (1 / 2) for j in range(len(JPosition))] for i in range(len(IPosition))]
+d = [[((IPosition[i][0] - JPosition[j][0]) ** 2 + (IPosition[i][1] - JPosition[j][1]) ** 2) ** (1 / 2) for j in
+      range(len(JPosition))] for i in range(len(IPosition))]
 
 # 避难所 j 对小区 i 居民的吸引力
-sj = [((center[0] - JPosition[j][0]) ** 2 + (center[1] - JPosition[j][1]) ** 2) ** (1 / 2) for j in range(len(JPosition))]
-di_ = [((center[0] - IPosition[i][0]) ** 2 + (center[1] - IPosition[i][1]) ** 2) ** (1 / 2) for i in range(len(IPosition))]
+sj = [((center[0] - JPosition[j][0]) ** 2 + (center[1] - JPosition[j][1]) ** 2) ** (1 / 2) for j in
+      range(len(JPosition))]
+di_ = [((center[0] - IPosition[i][0]) ** 2 + (center[1] - IPosition[i][1]) ** 2) ** (1 / 2) for i in
+       range(len(IPosition))]
 A = [[getAij(cj_[j], sj[j], di_[i]) for j in range(len(JPosition))] for i in range(len(IPosition))]
 
 # 避难所 j 对小区 i 居民的效用

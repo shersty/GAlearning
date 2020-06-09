@@ -11,9 +11,10 @@ import random
 
 
 class SimulatedAnnealing(object):
-    def __init__(self, function, testFunction, trueValueNum=5, falseValueNum=5, T=1e8, cool=0.9):
+    def __init__(self, function, testFunction, F = 800, trueValueNum=5, falseValueNum=5, T=1e8, cool=0.9):
         self.function = function
         self.testFunction = testFunction
+        self.F = F
         self.trueValueNum = trueValueNum
         self.falseValueNum = falseValueNum
         self.T = T
@@ -23,7 +24,7 @@ class SimulatedAnnealing(object):
         # 随机的初始解
         vec = [True] * self.trueValueNum + [False] * self.falseValueNum
         random.shuffle(vec)
-        while self.testFunction(vec):
+        while self.testFunction(vec, upperBound=self.F):
             vec = [True] * self.trueValueNum + [False] * self.falseValueNum
             random.shuffle(vec)
         count = 0
@@ -40,7 +41,7 @@ class SimulatedAnnealing(object):
             vec_copy[minIndex:maxIndex + 1] = reversed(vec_copy[minIndex:maxIndex + 1])
 
             # 判断这种改变是否合法
-            while (self.testFunction(vec_copy)):
+            while self.testFunction(vec_copy, upperBound=self.F):
                 indexTuple = random.sample(range(self.falseValueNum + self.trueValueNum), 2)
                 minIndex = min(indexTuple)
                 maxIndex = max(indexTuple)
